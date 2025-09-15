@@ -1,4 +1,3 @@
-import { useState } from "react";
 import usePosts from "../hooks/usePosts";
 
 const PostList = () => {
@@ -8,6 +7,7 @@ const PostList = () => {
     error,
     isLoading,
     fetchNextPage,
+    isFetchingNextPage
   } = usePosts({ pageSize });
 
   if (isLoading) return <p>Loading...</p>;
@@ -25,8 +25,8 @@ const PostList = () => {
           ))
         )}
       </ul>
-      <button className="btn my-3 ms-1" onClick={() => fetchNextPage()}>
-        Load more
+      <button disabled={isFetchingNextPage} className="btn btn-primary my-3 ms-1" onClick={() => fetchNextPage()}>
+        {isFetchingNextPage ? 'Loading...' : 'Load more'}
       </button>
     </div>
   );
